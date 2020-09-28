@@ -1,5 +1,8 @@
 package com.vmperson.day03;
 
+import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+
 /**
  * @ClassName: KeyProcessFunctionExample
  * @Description: TODO
@@ -10,9 +13,8 @@ package com.vmperson.day03;
 public class KeyProcessFunctionExample {
     public static void main(String[] args) {
 
-
-
-
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        DataStreamSource<String> source = env.socketTextStream("localhost", 9999);
 
 
     }
