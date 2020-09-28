@@ -11,19 +11,15 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
  * @Version: 1.0
  */
 public class KeyProcessFunctionExample {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         DataStreamSource<String> source = env.socketTextStream("localhost", 9999);
 
 
+        env.execute();
+
     }
-
-
-
-
-
-
 
 
 }
