@@ -16,8 +16,6 @@ public class KeyProcessFunctionExample {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         DataStreamSource<String> source = env.socketTextStream("localhost", 9999);
 
-        System.out.println("测试Git");
-
         env.execute();
     }
 
