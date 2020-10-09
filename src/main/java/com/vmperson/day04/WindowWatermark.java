@@ -27,9 +27,11 @@ public class WindowWatermark {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
         env.setParallelism(1);
+
+        //设置提交水位线时间
         env.getConfig().setAutoWatermarkInterval(60 * 1000L);
 
-        DataStreamSource<String> source = env.socketTextStream("hadoop102", 9999);
+        DataStreamSource<String> source = env.socketTextStream("hadoop102", 9998);
 
         source.map(new MapFunction<String, Tuple2<String, Long>>() {
             @Override
