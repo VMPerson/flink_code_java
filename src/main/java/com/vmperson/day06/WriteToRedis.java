@@ -41,12 +41,12 @@ public class WriteToRedis {
 
         @Override
         public String getKeyFromData(SensorReading sensorReading) {
-            return sensorReading.getSensorId();
+            return sensorReading.sensorId;
         }
 
         @Override
         public String getValueFromData(SensorReading sensorReading) {
-            return sensorReading.getCurFTemp() + "";
+            return sensorReading.curFTemp + "";
         }
     }
 

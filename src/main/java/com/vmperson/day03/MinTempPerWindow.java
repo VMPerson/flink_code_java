@@ -25,7 +25,7 @@ public class MinTempPerWindow {
         source.map(new MapFunction<SensorReading, Tuple2<String, Double>>() {
             @Override
             public Tuple2 map(SensorReading value) throws Exception {
-                return Tuple2.of(value.getSensorId(), value.getCurFTemp());
+                return Tuple2.of(value.sensorId, value.curFTemp);
             }
         })
                 .keyBy(r -> r.f0)

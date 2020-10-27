@@ -25,7 +25,7 @@ public class TempIncreaseAlert {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
         DataStreamSource<SensorReading> streamSource = env.addSource(new SensorSource());
-        streamSource.keyBy(r -> r.getSensorId())
+        streamSource.keyBy(r -> r.sensorId)
                 .process(new MyKeyProcessFun())
                 .print();
 
@@ -53,7 +53,7 @@ public class TempIncreaseAlert {
             if (lastTemp.value() != null) {
                 prevTemp = lastTemp.value();
             }
-            lastTemp.update(sensorReading.getCurFTemp());  //设置这次的温度值
+            lastTemp.update(sensorReading.curFTemp);  //设置这次的温度值
 
             //获取上一次的时间戳
             if (currentTimer.value() != null) {
@@ -62,10 +62,10 @@ public class TempIncreaseAlert {
 
 
             //判断如果这次是第一次或者温度小于上一次的温度值，则删除定时器，清空定时器变量，
-            if (prevTemp == 0.0 || sensorReading.getCurFTemp() < prevTemp) {
+            if (prevTemp == 0.0 || sensorReading.curFTemp < prevTemp) {
                 ctx.timerService().deleteProcessingTimeTimer(curTimerTimestamp);
                 currentTimer.clear();
-            } else if (sensorReading.getCurFTemp() > curTimerTimestamp && curTimerTimestamp == 0L) {
+            } else if (sensorReading.curFTemp > curTimerTimestamp && curTimerTimestamp == 0L) {
                 long onSecondLater = ctx.timerService().currentProcessingTime() + 1000L;
                 ctx.timerService().registerProcessingTimeTimer(onSecondLater);
                 currentTimer.update(onSecondLater);

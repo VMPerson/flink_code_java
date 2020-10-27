@@ -80,14 +80,10 @@ public class TriggerExample {
             return TriggerResult.CONTINUE;
         }
 
-
         //定时器逻辑
         @Override
         public TriggerResult onProcessingTime(long time, TimeWindow window, TriggerContext ctx) throws Exception {
-
-
             return TriggerResult.CONTINUE;
-
         }
 
         @Override

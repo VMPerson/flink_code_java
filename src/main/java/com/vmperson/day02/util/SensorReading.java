@@ -9,9 +9,12 @@ package com.vmperson.day02.util;
  */
 public class SensorReading {
 
-    private String sensorId;
-    private long LongTime;
-    private Double curFTemp;
+    public String sensorId;
+    public long LongTime;
+    public Double curFTemp;
+
+    public SensorReading() {
+    }
 
     public SensorReading(String sensorId, long longTime, Double curFTemp) {
         this.sensorId = sensorId;
@@ -27,29 +30,5 @@ public class SensorReading {
                 ", LongTime=" + LongTime +
                 ", curFTemp=" + curFTemp +
                 '}';
-    }
-
-    public String getSensorId() {
-        return sensorId;
-    }
-
-    public void setSensorId(String sensorId) {
-        this.sensorId = sensorId;
-    }
-
-    public long getLongTime() {
-        return LongTime;
-    }
-
-    public void setLongTime(long longTime) {
-        LongTime = longTime;
-    }
-
-    public Double getCurFTemp() {
-        return curFTemp;
-    }
-
-    public void setCurFTemp(Double curFTemp) {
-        this.curFTemp = curFTemp;
     }
 }

@@ -27,7 +27,7 @@ public class MultiStreamTransformations {
         // 烟感并行度设置为1
         DataStream<SmokeLevel> smokeReadings = env.addSource(new SmokeLevelSource()).setParallelism(1);
 
-        tempReadings.keyBy(r ->r.getSensorId()).connect(smokeReadings.broadcast()).flatMap(new RaiseAlertFlatMap()).print();
+        tempReadings.keyBy(r ->r.sensorId).connect(smokeReadings.broadcast()).flatMap(new RaiseAlertFlatMap()).print();
 
         env.execute();
     }
@@ -39,8 +39,8 @@ public class MultiStreamTransformations {
         @Override
         public void flatMap1(SensorReading sensorReading, Collector<Alert> collector) throws Exception {
 
-            if (this.smokeLevel == SmokeLevel.HIGH && sensorReading.getCurFTemp() > 0.0) {
-                collector.collect(new Alert("报警！" + sensorReading, sensorReading.getLongTime()));
+            if (this.smokeLevel == SmokeLevel.HIGH && sensorReading.curFTemp > 0.0) {
+                collector.collect(new Alert("报警！" + sensorReading, sensorReading.LongTime));
             }
         }
 

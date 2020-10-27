@@ -24,7 +24,7 @@ public class SwitchSensorStream {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
-        KeyedStream<SensorReading, String> stream = env.addSource(new SensorSource()).keyBy(r -> r.getSensorId());
+        KeyedStream<SensorReading, String> stream = env.addSource(new SensorSource()).keyBy(r -> r.sensorId);
         KeyedStream<Tuple2<String, Long>, String> switchStream = env.fromElements(Tuple2.of("source_1", 10 * 1000L)).keyBy(r -> r.f0);
 
         stream.connect(switchStream).process(new SwitchFilter()).print();

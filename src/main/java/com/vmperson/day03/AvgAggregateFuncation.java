@@ -25,7 +25,7 @@ public class AvgAggregateFuncation {
 
         DataStreamSource<SensorReading> source = env.addSource(new SensorSource());
 
-        source.keyBy(r->r.getSensorId())
+        source.keyBy(r -> r.sensorId)
                 .timeWindow(Time.seconds(5))
                 .aggregate(new AvgAggregate())
                 .print();
@@ -35,22 +35,22 @@ public class AvgAggregateFuncation {
 
     }
 
-    public  static  class AvgAggregate implements AggregateFunction<SensorReading, Tuple3<String,Double,Long>, Tuple2<String,Double>>{
+    public static class AvgAggregate implements AggregateFunction<SensorReading, Tuple3<String, Double, Long>, Tuple2<String, Double>> {
 
 
         @Override
         public Tuple3<String, Double, Long> createAccumulator() {
-            return Tuple3.of("",0.0,0L);
+            return Tuple3.of("", 0.0, 0L);
         }
 
         @Override
         public Tuple3<String, Double, Long> add(SensorReading value, Tuple3<String, Double, Long> accumulator) {
-            return Tuple3.of(value.getSensorId(),value.getCurFTemp()+accumulator.f1,accumulator.f2+=1);
+            return Tuple3.of(value.sensorId, value.curFTemp + accumulator.f1, accumulator.f2 += 1);
         }
 
         @Override
         public Tuple2<String, Double> getResult(Tuple3<String, Double, Long> accumulator) {
-            return Tuple2.of(accumulator.f0,accumulator.f1/accumulator.f2);
+            return Tuple2.of(accumulator.f0, accumulator.f1 / accumulator.f2);
         }
 
         @Override

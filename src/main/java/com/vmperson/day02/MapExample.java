@@ -22,13 +22,13 @@ public class MapExample {
         DataStreamSource<SensorReading> source = env.addSource(new SensorSource());
 
         //使用原算子
-        source.map(r -> r.getSensorId()).print();
+        source.map(r -> r.sensorId).print();
         //使用匿名内部类的方式
         SingleOutputStreamOperator<String> res = source.map(new MapFunction<SensorReading, String>() {
             @Override
             public String map(SensorReading str
             ) throws Exception {
-                return str.getSensorId();
+                return str.sensorId;
             }
         });
         res.print();
@@ -44,6 +44,6 @@ class MyMap implements MapFunction<SensorReading, String> {
 
     @Override
     public String map(SensorReading value) throws Exception {
-        return value.getSensorId();
+        return value.sensorId;
     }
 }

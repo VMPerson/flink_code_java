@@ -25,7 +25,7 @@ public class ProcessTimeWindow {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
         DataStreamSource<SensorReading> source = env.addSource(new SensorSource());
-        source.keyBy(r->r.getSensorId())
+        source.keyBy(r->r.sensorId)
                 .timeWindow(Time.seconds(5))
                 .process(new MyProcessWindow())
                 .print();
@@ -43,7 +43,7 @@ public class ProcessTimeWindow {
              Long times =0L;
 
             for (SensorReading reading : elements) {
-                sum+=reading.getCurFTemp();
+                sum+=reading.curFTemp;
                 times+=1;
             }
 

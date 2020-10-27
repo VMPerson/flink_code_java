@@ -19,9 +19,9 @@ public class UnionExample {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
 
-        SingleOutputStreamOperator<SensorReading> source_1 = env.addSource(new SensorSource()).filter(r -> r.getSensorId().equals("source_1"));
-        SingleOutputStreamOperator<SensorReading> source_2 = env.addSource(new SensorSource()).filter(r -> r.getSensorId().equals("source_2"));
-        SingleOutputStreamOperator<SensorReading> source_3 = env.addSource(new SensorSource()).filter(r -> r.getSensorId().equals("source_3"));
+        SingleOutputStreamOperator<SensorReading> source_1 = env.addSource(new SensorSource()).filter(r -> r.sensorId.equals("source_1"));
+        SingleOutputStreamOperator<SensorReading> source_2 = env.addSource(new SensorSource()).filter(r -> r.sensorId.equals("source_2"));
+        SingleOutputStreamOperator<SensorReading> source_3 = env.addSource(new SensorSource()).filter(r -> r.sensorId.equals("source_3"));
 
         DataStream<SensorReading> res = source_1.union(source_2, source_3);
         res.print();

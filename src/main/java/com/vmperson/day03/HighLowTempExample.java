@@ -26,7 +26,7 @@ public class HighLowTempExample {
 
         DataStreamSource<SensorReading> streamSource = env.addSource(new SensorSource());
 
-        streamSource.keyBy(r -> r.getSensorId())
+        streamSource.keyBy(r -> r.sensorId)
                 .timeWindow(Time.seconds(5))
                 .aggregate(new AvgFun(), new WindowFun())
                 .print();
@@ -52,7 +52,7 @@ public class HighLowTempExample {
         @Override
         public Tuple3<String, Double, Double> add(SensorReading r1, Tuple3<String, Double, Double> accumulator) {
 
-            return Tuple3.of(r1.getSensorId(), Math.min(r1.getCurFTemp(), accumulator.f1), Math.max(r1.getCurFTemp(), accumulator.f2));
+            return Tuple3.of(r1.sensorId, Math.min(r1.curFTemp, accumulator.f1), Math.max(r1.curFTemp, accumulator.f2));
         }
         @Override
         public Tuple3<String, Double, Double> getResult(Tuple3<String, Double, Double> accumulator) {

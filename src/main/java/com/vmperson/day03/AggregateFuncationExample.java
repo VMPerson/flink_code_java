@@ -23,7 +23,7 @@ public class AggregateFuncationExample {
         env.setParallelism(1);
         //分组----开窗----聚合
         DataStreamSource<SensorReading> resource = env.addSource(new SensorSource());
-        resource.keyBy(r->r.getSensorId())
+        resource.keyBy(r -> r.sensorId)
                 .timeWindow(Time.seconds(5))
                 .aggregate(new MyAggregatte())
                 .print();
@@ -33,18 +33,18 @@ public class AggregateFuncationExample {
 
     }
 
-    public  static class MyAggregatte implements AggregateFunction<SensorReading,Tuple2<String,Double>,Tuple2<String,Double>>{
+    public static class MyAggregatte implements AggregateFunction<SensorReading, Tuple2<String, Double>, Tuple2<String, Double>> {
 
         @Override
         public Tuple2<String, Double> createAccumulator() {
-            return Tuple2.of("",Double.MAX_VALUE);
+            return Tuple2.of("", Double.MAX_VALUE);
         }
 
         @Override
         public Tuple2<String, Double> add(SensorReading sen, Tuple2<String, Double> acc) {
-            if (sen.getCurFTemp()<acc.f1){
-                return Tuple2.of(sen.getSensorId(),sen.getCurFTemp());
-            }else{
+            if (sen.curFTemp < acc.f1) {
+                return Tuple2.of(sen.sensorId, sen.curFTemp);
+            } else {
                 return acc;
             }
         }

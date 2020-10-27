@@ -27,7 +27,7 @@ public class ReduceExample {
         ds.map(new MapFunction<SensorReading, Tuple2<String, Double>>() {
             @Override
             public Tuple2 map(SensorReading str) throws Exception {
-                return Tuple2.of(str.getSensorId(), str.getCurFTemp());
+                return Tuple2.of(str.sensorId, str.curFTemp);
             }
         })
                 .keyBy(r -> r.f0)

@@ -51,16 +51,16 @@ public class SideOutputExample {
 
 
         //通过分流方式
-        SingleOutputStreamOperator<SensorReading> stream1 = source.keyBy(r -> r.getSensorId())
+        SingleOutputStreamOperator<SensorReading> stream1 = source.keyBy(r -> r.sensorId)
                 .process(new KeyedProcessFunction<String, SensorReading, SensorReading>() {
 
                     @Override
                     public void processElement(SensorReading sensorReading, Context ctx, Collector<SensorReading> out) throws Exception {
-                        if (sensorReading.getCurFTemp() < 32) {
-                            ctx.output(outputTag, "id: " + sensorReading.getSensorId() + " 温度小于32C！");
+                        if (sensorReading.curFTemp < 32) {
+                            ctx.output(outputTag, "id: " + sensorReading.sensorId + " 温度小于32C！");
                         }
-                        if (sensorReading.getCurFTemp() > 100) {
-                            ctx.output(outputTag1, "高温预警！ " + sensorReading.getSensorId());
+                        if (sensorReading.curFTemp > 100) {
+                            ctx.output(outputTag1, "高温预警！ " + sensorReading.sensorId);
                         }
                         out.collect(sensorReading);
                     }
@@ -75,13 +75,10 @@ public class SideOutputExample {
         stream1.print();
 
 
-
         env.execute();
     }
 
     //我们采用两种方式：两种方式的区别 ：
-
-
 
 
 }
